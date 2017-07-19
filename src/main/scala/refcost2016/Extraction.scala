@@ -16,14 +16,14 @@ object Extraction extends SparkSessionBuilder {
 
   import spark.implicits._
 
-  val schema: StructType =
+  private val schema: StructType =
     ScalaReflection.schemaFor[DataPerComune].dataType.asInstanceOf[StructType]
 
-  val csvOptions =
+  private val csvOptions =
     Map("header" -> "true", "delimiter" -> ";")
 
   // match against positive integer numbers (excluding leading zeros, including 0)
-  val numRegex: Regex = """^([1-9]\d*|0)$""".r
+  private val numRegex: Regex = """^([1-9]\d*|0)$""".r
 
   def extract(dataFile: String): Dataset[DataPerComune] =
     spark.read

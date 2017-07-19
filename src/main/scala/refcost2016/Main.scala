@@ -7,8 +7,11 @@ import utils.SparkSessionBuilder
 
 object Main extends App with SparkSessionBuilder {
 
-  import spark.implicits._
-  val inputData = Extraction.extract("/referendum2016.csv")
+  // import spark.implicits._
+
+  lazy val fileName: Option[String] = args.headOption
+  lazy val inputData =
+    Extraction.extract(fileName.getOrElse("referendum2016.csv"))
 
   //inputData.printSchema()
 
