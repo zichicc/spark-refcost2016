@@ -17,6 +17,6 @@ object OutputWriter extends App with SparkSessionBuilder {
     Extraction.extract(fileName.getOrElse(defaultFileName))
   val outputData: Dataset[DataPerRegione] = Manipulation.manipulate(inputData)
 
-  outputData.printSchema()
+  outputData.printSchema
 
 }
