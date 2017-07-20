@@ -3,18 +3,18 @@ package refcost2016
 /**
   * Created by christianzichichi <christianzichichi@gmail.com> on 19/07/2017.
   */
-final case class DataPerComune(regione: Option[String],
-                               provincia: Option[String],
-                               comune: Option[String],
-                               elettori: Option[Long],
-                               elettori_m: Option[Long],
-                               votanti: Option[Long],
-                               votanti_m: Option[Long],
-                               votisi: Option[Long],
-                               votino: Option[Long],
-                               votibianchi: Option[Long],
-                               votinonvalidi: Option[Long],
-                               voticontestati: Option[Long])
+final case class DataPerComune(regione: String,
+                               provincia: String,
+                               comune: String,
+                               elettori: Long,
+                               elettori_m: Long,
+                               votanti: Long,
+                               votanti_m: Long,
+                               voti_si: Long,
+                               voti_no: Long,
+                               voti_bianchi: Long,
+                               voti_nonvalidi: Long,
+                               voti_contestati: Long)
 
 final case class DataPerRegione(regione: String,
                                 elettori_m: Long,
