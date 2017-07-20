@@ -6,7 +6,6 @@ package refcost2016
 import org.apache.spark.sql.Dataset
 import utils.SparkSessionBuilder
 import utils.Resources._
-import refcost2016.Models._
 import org.apache.spark.sql.catalyst.ScalaReflection
 import org.apache.spark.sql.types.StructType
 
@@ -16,20 +15,22 @@ object Extraction extends SparkSessionBuilder {
 
   import spark.implicits._
 
-  private val schema: StructType =
-    ScalaReflection.schemaFor[DataPerComune].dataType.asInstanceOf[StructType]
+//  private val schema: StructType =
+//  ScalaReflection.schemaFor[DataPerComune].dataType.asInstanceOf[StructType]
+
+  //private val schema: StructType =
 
   private val csvOptions =
-    Map("header" -> "true", "delimiter" -> ";")
+    Map("inferSchema" -> "true", "header" -> "true", "delimiter" -> ";")
 
-  // match against positive integer numbers (excluding leading zeros, including 0)
-  private val numRegex: Regex = """^([1-9]\d*|0)$""".r
-
-  def extract(dataFile: String): Dataset[DataPerComune] =
+  def extract(dataFile: String) =
     spark.read
-      .schema(schema)
+    //.schema(schema)
       .options(csvOptions)
       .csv(resourcePath(dataFile))
-      .as[DataPerComune]
+//      .select(
+//        'DESCREGIONE.ali
+//      )
+  //.as[DataPerComune]
 
 }

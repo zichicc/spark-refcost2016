@@ -14,12 +14,7 @@ object Main extends App with SparkSessionBuilder {
   lazy val inputData =
     Extraction.extract(fileName.getOrElse(defaultFileName))
 
-  //inputData.printSchema()
-
-  inputData
-    .select($"descregione", $"descprovincia", $"desccomune")
-    .where(
-      $"descregione" === "" or $"descprovincia" === "" or $"desccomune" === "")
-    .show
+  inputData.printSchema()
+//  inputData.where($"VOTANTI_M".isNull).show
 
 }
