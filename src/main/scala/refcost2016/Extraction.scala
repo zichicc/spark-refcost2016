@@ -30,6 +30,7 @@ object Extraction extends SparkSessionBuilder {
     df.withColumn("regione", trim('regione))
       .withColumn("provincia", trim('provincia))
       .withColumn("comune", trim('comune))
+      .dropDuplicates("regione", "provincia", "comune")
       .as[DataPerComune]
 
   def extract(fileName: String): Dataset[DataPerComune] = {
