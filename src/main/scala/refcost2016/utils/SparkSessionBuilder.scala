@@ -14,7 +14,6 @@ trait SparkSessionBuilder {
   implicit val spark: SparkSession = SparkSession
     .builder()
     .master("local[*]")
-    .appName(this.getClass.getSimpleName)
+    .appName("spark-refcost2016")
     .getOrCreate()
-
 }

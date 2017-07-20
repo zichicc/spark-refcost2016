@@ -3,9 +3,10 @@ package refcost2016
 /**
   * Created by christianzichichi <christianzichichi@gmail.com> on 19/07/2017.
   */
-import org.apache.spark.sql.{DataFrame, Dataset}
 import utils.SparkSessionBuilder
 import utils.Resources._
+
+import org.apache.spark.sql.{DataFrame, Dataset}
 import org.apache.spark.sql.catalyst.ScalaReflection
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.functions.trim
