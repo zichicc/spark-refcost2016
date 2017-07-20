@@ -1,19 +1,27 @@
 # Italian Constitution Referendum 2016 Data Analysis
 
-Input Dataset schema (Semicolon-delimited csv file):
+Create a `resources` folder in src/main and place a semicolon-delimited csv file in it.
+The file should include an header describing these columns:
 
 ```root
-    |-- DESCREGIONE: string (nullable = true)
-    |-- DESCPROVINCIA: string (nullable = true)
-    |-- DESCCOMUNE: string (nullable = true)
-    |-- ELETTORI: string (nullable = true)
-    |-- ELETTORI_M: string (nullable = true)
-    |-- VOTANTI: string (nullable = true)
-    |-- VOTANTI_M: integer (nullable = true)
-    |-- NUMVOTISI: integer (nullable = true)
-    |-- NUMVOTINO: integer (nullable = true)
-    |-- NUMVOTIBIANCHI: integer (nullable = true)
-    |-- NUMVOTINONVALIDI: integer (nullable = true)
-    |-- NUMVOTICONTESTATI: integer (nullable = true)
+    |-- DESCREGIONE: Categorical
+    |-- DESCPROVINCIA: Categorical
+    |-- DESCCOMUNE: Categorical
+    |-- ELETTORI: Numerical
+    |-- ELETTORI_M: Numerical
+    |-- VOTANTI: Numerical
+    |-- VOTANTI_M: Numerical
+    |-- NUMVOTISI: Numerical
+    |-- NUMVOTINO: Numerical
+    |-- NUMVOTIBIANCHI: Numerical
+    |-- NUMVOTINONVALIDI: Numerical
+    |-- NUMVOTICONTESTATI: Numerical
 ```
+
+Categorical fields may be null and numerical ones can be malformed (include chars and forming
+a string as a consequence, NaN, empty, negative numbers).
+
+The output semicolon-delimited csv file will be saved in `output/` folder with `"input-file-name"-aggregated.csv` 
+as name and and have this schema: 
+
 
