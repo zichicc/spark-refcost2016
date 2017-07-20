@@ -34,5 +34,5 @@ as name and will have this schema:
     |-- PERCENTUALEVOTI_NO: double (nullable = true)
     |-- PERCENTUALEVOTI_BNVC: double (nullable = true)
 ```
-`PERCENTUALEVOTI_BNVC` includes `VOTIBIANCHI`, `VOTINONVALIDI` and `NUMVOTICONTESTATI`
+`PERCENTUALEVOTI_BNVC` percentage includes `VOTIBIANCHI`, `VOTINONVALIDI` and `NUMVOTICONTESTATI`.
 
