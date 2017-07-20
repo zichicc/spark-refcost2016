@@ -68,6 +68,6 @@ meta
 
 # project specific
 
-src/main/output/*
+output/
 spark-warehouse/
 src/main/resources/*
