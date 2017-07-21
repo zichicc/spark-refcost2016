@@ -6,7 +6,7 @@ package refcost2016
 import utils.SparkSessionBuilder
 import org.apache.spark.sql.{Dataset, SaveMode}
 
-object OutputWriter extends App with SparkSessionBuilder {
+object Main extends App with SparkSessionBuilder {
 
   import Extraction._
   import Manipulation._
