@@ -15,7 +15,12 @@ object Main extends App with SparkSessionBuilder {
   import Save._
 
   // files and directories management
-  val inputFileName: String = args.head
+  val inputFileName: String = args.headOption.getOrElse {
+    spark.stop
+    throw new IllegalArgumentException(
+      "Null/Invalid 'input-file-name.csv' passed as argument " +
+        "or the file may be missing from ./src/main/resources/")
+  }
   val inputPath: String = resourcePath(inputFileName)
   val csvOptions = Map("header" -> "true", "delimiter" -> ";")
   val outputFolder: String = "output"

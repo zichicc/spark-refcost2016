@@ -1,7 +1,7 @@
 # Italian Constitutional Referendum 2016 Data Analysis
 
 ### Project Setup (IntelliJ Idea / SBT)
-Create a `resources` folder in src/main/ and place a semicolon-delimited `csv` file in it, 
+Create a `resources` folder in ./src/main/ and place a semicolon-delimited `csv` file in it, 
 which should include a header describing these columns:
 
 ``` 
@@ -36,7 +36,7 @@ clean
 run csv-file-name.csv
 ```
 
-The output semicolon-delimited csv file will be saved in `output/` folder as `"input-file-name"-aggregated.csv` with this schema: 
+The output semicolon-delimited csv file will be saved in `./output/` folder as `"input-file-name"-aggregated.csv` with this schema: 
 
 ``` 
     |-- DESCREGIONE: string
