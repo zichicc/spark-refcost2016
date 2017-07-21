@@ -4,7 +4,6 @@ package refcost2016
   * Created by christianzichichi <christianzichichi@gmail.com> on 19/07/2017.
   */
 import utils.SparkSessionBuilder
-import utils.Resources.resourcePath
 import org.apache.spark.sql.{DataFrame, Dataset}
 import org.apache.spark.sql.catalyst.ScalaReflection
 import org.apache.spark.sql.types.StructType
@@ -54,12 +53,12 @@ object Extraction extends SparkSessionBuilder {
         'votanti === 'voti_si + 'voti_no + 'voti_bianchi + 'voti_nonvalidi + 'voti_contestati)
   }
 
-  def extract(fileName: String): Dataset[DataPerComune] = {
+  def extract(filePath: String): Dataset[DataPerComune] = {
 
     val df: DataFrame = spark.read
       .schema(schema)
       .options(csvOptions)
-      .csv(resourcePath(fileName))
+      .csv(filePath)
 
     val processedDF: DataFrame = process(df)
 
