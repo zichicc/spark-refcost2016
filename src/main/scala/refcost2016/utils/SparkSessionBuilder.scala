@@ -9,7 +9,7 @@ import org.apache.spark.sql.SparkSession
 
 trait SparkSessionBuilder {
 
-  Logger.getLogger("org.apache.spark").setLevel(Level.WARN)
+  Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
 
   implicit val spark: SparkSession = SparkSession
     .builder()

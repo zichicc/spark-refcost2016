@@ -10,3 +10,5 @@ libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-core" % sparkVersion,
   "org.apache.spark" %% "spark-sql" % sparkVersion
 )
+
+mainClass in (Compile, run) := Some("refcost2016.Main")

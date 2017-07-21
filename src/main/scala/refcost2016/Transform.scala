@@ -1,14 +1,13 @@
 package refcost2016
 
-import refcost2016.utils.SparkSessionBuilder
-
+import utils._
 import org.apache.spark.sql.Dataset
 import org.apache.spark.sql.types.DoubleType
 
 /**
   * Created by christianzichichi <christianzichichi@gmail.com> on 20/07/2017.
   */
-object Manipulation extends SparkSessionBuilder {
+object Transform extends SparkSessionBuilder {
 
   import spark.implicits._
 

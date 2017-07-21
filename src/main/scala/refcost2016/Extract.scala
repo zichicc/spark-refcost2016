@@ -3,17 +3,17 @@ package refcost2016
 /**
   * Created by christianzichichi <christianzichichi@gmail.com> on 19/07/2017.
   */
-import utils.SparkSessionBuilder
+import utils.{DataPerComune, SparkSessionBuilder}
 import org.apache.spark.sql.{DataFrame, Dataset}
 import org.apache.spark.sql.catalyst.ScalaReflection
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.functions.{trim, upper}
 
-object Extraction extends SparkSessionBuilder {
+object Extract extends SparkSessionBuilder {
 
   import spark.implicits._
 
-  private val italianRegions: Seq[String] = List(
+  private val italianRegions: List[String] = List(
     "LOMBARDIA",
     "ABRUZZO",
     "LIGURIA",
