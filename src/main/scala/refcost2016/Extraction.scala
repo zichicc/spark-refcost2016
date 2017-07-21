@@ -15,7 +15,7 @@ object Extraction extends SparkSessionBuilder {
 
   import spark.implicits._
 
-  private val italianRegions: Set[String] = Set(
+  private val italianRegions: List[String] = List(
     "LOMBARDIA",
     "ABRUZZO",
     "LIGURIA",
@@ -46,8 +46,10 @@ object Extraction extends SparkSessionBuilder {
 
   private def preProcess(df: DataFrame): DataFrame = {
     df.na.drop
-      .where('elettori >= 'elettori_m and 'votanti >= 'votanti_m and
-        'votanti === 'voti_si + 'voti_no + 'voti_bianchi + 'voti_nonvalidi + 'voti_contestati)
+      .where(
+        'regione
+          .isin(italianRegions: _*) and 'elettori >= 'elettori_m and 'votanti >= 'votanti_m and
+          'votanti === 'voti_si + 'voti_no + 'voti_bianchi + 'voti_nonvalidi + 'voti_contestati)
   }
 
   private def postProcess(df: DataFrame): Dataset[DataPerComune] =
