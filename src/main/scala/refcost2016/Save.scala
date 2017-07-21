@@ -1,13 +1,12 @@
 package refcost2016
 
-import java.io.File
-
-import org.apache.spark.sql.{Dataset, SaveMode}
-import refcost2016.utils.{DataPerRegione, SparkSessionBuilder}
-
 /**
   * Created by christianzichichi <christianzichichi@gmail.com> on 21/07/2017.
   */
+import utils.{DataPerRegione, SparkSessionBuilder}
+import java.io.File
+import org.apache.spark.sql.{Dataset, SaveMode}
+
 object Save extends SparkSessionBuilder {
 
   def writeOutput(ds: Dataset[DataPerRegione],

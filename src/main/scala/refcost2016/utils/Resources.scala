@@ -9,5 +9,4 @@ object Resources {
 
   def resourcePath(resource: String): String =
     Paths.get(getClass.getResource(s"/$resource").toURI).toString
-
 }

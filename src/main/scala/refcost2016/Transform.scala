@@ -1,12 +1,12 @@
 package refcost2016
 
+/**
+  * Created by christianzichichi <christianzichichi@gmail.com> on 20/07/2017.
+  */
 import utils._
 import org.apache.spark.sql.Dataset
 import org.apache.spark.sql.types.DoubleType
 
-/**
-  * Created by christianzichichi <christianzichichi@gmail.com> on 20/07/2017.
-  */
 object Transform extends SparkSessionBuilder {
 
   import spark.implicits._

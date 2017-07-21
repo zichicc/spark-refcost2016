@@ -6,7 +6,6 @@ package refcost2016
 import utils._
 import utils.Resources.resourcePath
 import java.io.File
-
 import org.apache.spark.sql.Dataset
 
 object Main extends App with SparkSessionBuilder {
