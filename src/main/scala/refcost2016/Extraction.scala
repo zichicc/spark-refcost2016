@@ -4,18 +4,17 @@ package refcost2016
   * Created by christianzichichi <christianzichichi@gmail.com> on 19/07/2017.
   */
 import utils.SparkSessionBuilder
-import utils.Resources._
-
+import utils.Resources.resourcePath
 import org.apache.spark.sql.{DataFrame, Dataset}
 import org.apache.spark.sql.catalyst.ScalaReflection
 import org.apache.spark.sql.types.StructType
-import org.apache.spark.sql.functions.trim
+import org.apache.spark.sql.functions.{trim, upper}
 
 object Extraction extends SparkSessionBuilder {
 
   import spark.implicits._
 
-  private val italianRegions: List[String] = List(
+  private val italianRegions: Seq[String] = List(
     "LOMBARDIA",
     "ABRUZZO",
     "LIGURIA",
@@ -44,20 +43,16 @@ object Extraction extends SparkSessionBuilder {
   private val csvOptions =
     Map("header" -> "true", "delimiter" -> ";", "mode" -> "DROPMALFORMED")
 
-  private def preProcess(df: DataFrame): DataFrame = {
+  private def process(df: DataFrame): DataFrame = {
     df.na.drop
-      .where(
-        'regione
-          .isin(italianRegions: _*) and 'elettori >= 'elettori_m and 'votanti >= 'votanti_m and
-          'votanti === 'voti_si + 'voti_no + 'voti_bianchi + 'voti_nonvalidi + 'voti_contestati)
+      .withColumn("regione", upper(trim('regione)))
+      .withColumn("provincia", upper(trim('provincia)))
+      .withColumn("comune", upper(trim('comune)))
+      .distinct
+      .where('regione
+        .isin(italianRegions: _*) and 'elettori >= 'elettori_m and 'votanti >= 'votanti_m and
+        'votanti === 'voti_si + 'voti_no + 'voti_bianchi + 'voti_nonvalidi + 'voti_contestati)
   }
-
-  private def postProcess(df: DataFrame): Dataset[DataPerComune] =
-    df.withColumn("regione", trim('regione))
-      .withColumn("provincia", trim('provincia))
-      .withColumn("comune", trim('comune))
-      .dropDuplicates("regione", "provincia", "comune")
-      .as[DataPerComune]
 
   def extract(fileName: String): Dataset[DataPerComune] = {
 
@@ -66,9 +61,10 @@ object Extraction extends SparkSessionBuilder {
       .options(csvOptions)
       .csv(resourcePath(fileName))
 
-    val integrityChecked: DataFrame = preProcess(df)
+    val processedDF: DataFrame = process(df)
 
-    postProcess(integrityChecked)
+    processedDF.as[DataPerComune]
+
   }
 
 }
