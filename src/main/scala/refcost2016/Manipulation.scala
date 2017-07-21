@@ -42,7 +42,7 @@ object Manipulation extends SparkSessionBuilder {
         ('votanti * 100).cast(DoubleType) / 'elettori as 'percvotanti,
         ('voti_si * 100).cast(DoubleType) / 'votanti as 'percvoti_si,
         ('voti_no * 100).cast(DoubleType) / 'votanti as 'percvoti_no,
-        ('voti_bianchi + 'voti_nonvalidi + 'voti_contestati)
+        (('voti_bianchi + 'voti_nonvalidi + 'voti_contestati) * 100)
           .cast(DoubleType) / 'votanti as 'percvoti_bnvc
       )
       .as[DataPerRegione]

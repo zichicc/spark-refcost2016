@@ -15,6 +15,29 @@ object Extraction extends SparkSessionBuilder {
 
   import spark.implicits._
 
+  private val italianRegions: Set[String] = Set(
+    "LOMBARDIA",
+    "ABRUZZO",
+    "LIGURIA",
+    "SARDEGNA",
+    "TRENTINO-ALTO ADIGE",
+    "CAMPANIA",
+    "EMILIA-ROMAGNA",
+    "MOLISE",
+    "SICILIA",
+    "BASILICATA",
+    "MARCHE",
+    "PIEMONTE",
+    "VENETO",
+    "UMBRIA",
+    "FRIULI-VENEZIA GIULIA",
+    "LAZIO",
+    "VALLE D'AOSTA",
+    "PUGLIA",
+    "CALABRIA",
+    "TOSCANA"
+  )
+
   private val schema =
     ScalaReflection.schemaFor[DataPerComune].dataType.asInstanceOf[StructType]
 
