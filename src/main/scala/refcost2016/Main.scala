@@ -28,4 +28,7 @@ object Main extends App with SparkSessionBuilder {
     .mode(SaveMode.Overwrite)
     .options(csvOptions)
     .csv(outputPath)
+
+  spark.stop
+
 }
