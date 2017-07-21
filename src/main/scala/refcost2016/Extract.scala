@@ -54,16 +54,11 @@ object Extract extends SparkSessionBuilder {
   }
 
   def extract(filePath: String): Dataset[DataPerComune] = {
-
     val df: DataFrame = spark.read
       .schema(schema)
       .options(csvOptions)
       .csv(filePath)
-
     val processedDF: DataFrame = process(df)
-
     processedDF.as[DataPerComune]
-
   }
-
 }

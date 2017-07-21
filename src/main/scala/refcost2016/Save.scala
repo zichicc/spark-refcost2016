@@ -31,5 +31,4 @@ object Save extends SparkSessionBuilder {
 
   def deleteTempfiles(fl: Array[File]): Unit =
     fl.filter(!_.getName.endsWith(".csv")).foreach(_.delete)
-
 }

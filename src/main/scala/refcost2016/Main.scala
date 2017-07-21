@@ -31,5 +31,4 @@ object Main extends App with SparkSessionBuilder {
   stopSparkSession()
   renameCsvFile(outDirFileList, outputFolder, inputFileName)
   deleteTempfiles(outDirFileList)
-
 }
