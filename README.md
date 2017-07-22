@@ -1,6 +1,6 @@
 # Italian Constitutional Referendum 2016 Data Analysis
 
-### Project Setup (IntelliJ Idea / SBT)
+### Project Setup (IntelliJ Idea / SBT Shell)
 Create a `resources` folder in ./src/main/ and place a semicolon-delimited `csv` file in it, 
 which should include a header describing these columns:
 
@@ -29,7 +29,7 @@ sbt clean
 sbt "run csv-file-name.csv"
 ```
 
-or inside `sbt`:
+or inside an `sbt` shell:
 
 ```
 clean 
