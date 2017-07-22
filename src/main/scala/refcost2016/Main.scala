@@ -24,8 +24,7 @@ object Main extends App with SparkSessionBuilder {
   val inputPath: String = resourcePath(inputFileName)
   val csvOptions = Map("header" -> "true", "delimiter" -> ";")
   val outputFolder: String = "output"
-  def outDirFileList: Array[File] =
-    new File(s".${File.separatorChar}$outputFolder").listFiles
+  val outDirFileList: Array[File] = listFilesInDir(outputFolder)
 
   // data processing
   val inputData: Dataset[DataPerComune] = extract(inputPath)

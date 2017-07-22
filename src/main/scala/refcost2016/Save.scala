@@ -9,6 +9,11 @@ import org.apache.spark.sql.{Dataset, SaveMode}
 
 object Save extends SparkSessionBuilder {
 
+  def stopSparkSession(): Unit = spark.stop
+
+  def listFilesInDir(outputFolder: String): Array[File] =
+    new File(s".${File.separatorChar}$outputFolder").listFiles
+
   def writeOutput(ds: Dataset[DataPerRegione],
                   csvOptions: Map[String, String],
                   outputFolder: String): Unit =
@@ -17,8 +22,6 @@ object Save extends SparkSessionBuilder {
       .mode(SaveMode.Overwrite)
       .options(csvOptions)
       .csv(outputFolder)
-
-  def stopSparkSession(): Unit = spark.stop
 
   def renameCsvFile(fl: Array[File],
                     outputFolder: String,
