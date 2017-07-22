@@ -14,15 +14,7 @@ object Transform extends SparkSessionBuilder {
   def manipulate(ds: Dataset[DataPerComune]): Dataset[DataPerRegione] =
     ds.drop("provincia", "comune")
       .groupBy('regione)
-      .sum("elettori",
-           "elettori_m",
-           "votanti",
-           "votanti_m",
-           "voti_si",
-           "voti_no",
-           "voti_bianchi",
-           "voti_nonvalidi",
-           "voti_contestati")
+      .sum()
       .toDF("regione",
             "elettori",
             "elettori_m",
@@ -44,5 +36,6 @@ object Transform extends SparkSessionBuilder {
         (('voti_bianchi + 'voti_nonvalidi + 'voti_contestati) * 100)
           .cast(DoubleType) / 'votanti as 'percvoti_bnvc
       )
+      .sort('regione)
       .as[DataPerRegione]
 }

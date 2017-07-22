@@ -14,26 +14,26 @@ object Extract extends SparkSessionBuilder {
   import spark.implicits._
 
   private val italianRegions: List[String] = List(
-    "LOMBARDIA",
     "ABRUZZO",
-    "LIGURIA",
-    "SARDEGNA",
-    "TRENTINO-ALTO ADIGE",
+    "BASILICATA",
+    "CALABRIA",
     "CAMPANIA",
     "EMILIA-ROMAGNA",
-    "MOLISE",
-    "SICILIA",
-    "BASILICATA",
-    "MARCHE",
-    "PIEMONTE",
-    "VENETO",
-    "UMBRIA",
     "FRIULI-VENEZIA GIULIA",
     "LAZIO",
-    "VALLE D'AOSTA",
+    "LIGURIA",
+    "LOMBARDIA",
+    "MARCHE",
+    "MOLISE",
+    "PIEMONTE",
     "PUGLIA",
-    "CALABRIA",
-    "TOSCANA"
+    "SARDEGNA",
+    "SICILIA",
+    "TOSCANA",
+    "TRENTINO-ALTO ADIGE",
+    "UMBRIA",
+    "VALLE D'AOSTA",
+    "VENETO"
   )
 
   private val schema =
