@@ -16,7 +16,7 @@ object Main extends App with SparkSessionBuilder {
 
   // files and directories management
   val inputFileName: String = args.headOption.getOrElse {
-    spark.stop
+    stopSparkSession()
     throw new IllegalArgumentException(
       "Null/Invalid 'input-file-name.csv' passed as argument " +
         "or the file may be missing from ./src/main/resources/")
@@ -31,6 +31,7 @@ object Main extends App with SparkSessionBuilder {
   val inputData: Dataset[DataPerComune] = extract(inputPath)
   val outputData: Dataset[DataPerRegione] = manipulate(inputData)
 
+  // saving data and finishing process
   writeOutput(outputData, csvOptions, outputFolder)
   stopSparkSession()
   renameCsvFile(outDirFileList, outputFolder, inputFileName)
