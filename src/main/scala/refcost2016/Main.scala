@@ -28,7 +28,7 @@ object Main extends App with SparkSessionBuilder {
 
   // data processing
   val inputData: Dataset[DataPerComune] = extract(inputPath)
-  val outputData: Dataset[DataPerRegione] = manipulate(inputData)
+  val outputData: Dataset[DataPerRegione] = transform(inputData)
 
   // saving data and finishing process
   writeOutput(outputData, csvOptions, outputFolder)

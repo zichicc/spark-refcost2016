@@ -11,7 +11,7 @@ object Transform extends SparkSessionBuilder {
 
   import spark.implicits._
 
-  def manipulate(ds: Dataset[DataPerComune]): Dataset[DataPerRegione] =
+  def transform(ds: Dataset[DataPerComune]): Dataset[DataPerRegione] =
     ds.drop("provincia", "comune")
       .groupBy('regione)
       .sum()
