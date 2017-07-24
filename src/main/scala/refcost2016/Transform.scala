@@ -35,6 +35,6 @@ object Transform extends SparkSessionBuilder {
         (('voti_bianchi + 'voti_nonvalidi + 'voti_contestati) * 100)
           .cast(DoubleType) / 'votanti as 'percvoti_bnvc
       )
-      .sort('regione)
+      .orderBy('regione)
       .as[DataPerRegione]
 }

@@ -13,7 +13,7 @@ object Extract extends SparkSessionBuilder {
 
   import spark.implicits._
 
-  private val italianRegions: List[String] = List(
+  private val italianRegions: Seq[String] = List(
     "ABRUZZO",
     "BASILICATA",
     "CALABRIA",
@@ -43,14 +43,29 @@ object Extract extends SparkSessionBuilder {
     Map("header" -> "true", "delimiter" -> ";", "mode" -> "DROPMALFORMED")
 
   private def process(df: DataFrame): DataFrame = {
-    df.na.drop
-      .withColumn("regione", upper(trim('regione)))
-      .withColumn("provincia", upper(trim('provincia)))
-      .withColumn("comune", upper(trim('comune)))
-      .distinct
-      .where('regione
-        .isin(italianRegions: _*) and 'elettori >= 'elettori_m and 'votanti >= 'votanti_m and
-        'votanti === 'voti_si + 'voti_no + 'voti_bianchi + 'voti_nonvalidi + 'voti_contestati)
+    val preProcessedDF: DataFrame =
+      df.na.drop // drop rows with null values (that did not conform to the schema)
+        .withColumn("regione", upper(trim('regione)))
+        .withColumn("provincia", upper(trim('provincia)))
+        .withColumn("comune", upper(trim('comune)))
+        .distinct // avoid duplicates
+        .where('regione
+          .isin(italianRegions: _*) and 'elettori >= 'elettori_m and 'votanti >= 'votanti_m and
+          'votanti === 'voti_si + 'voti_no + 'voti_bianchi + 'voti_nonvalidi + 'voti_contestati)
+
+    val duplicateCheck: DataFrame =
+      preProcessedDF
+        .groupBy('regione, 'provincia, 'comune)
+        .count
+    val duplicateCheckColumns: Seq[String] =
+      List("regione", "provincia", "comune")
+
+    val postProcessedDF: DataFrame = preProcessedDF
+      .join(duplicateCheck, duplicateCheckColumns)
+      .where('count === 1) // avoid conflicts if comune inserted twice with different data
+      .drop('count)
+
+    postProcessedDF
   }
 
   def extract(filePath: String): Dataset[DataPerComune] = {
@@ -58,7 +73,8 @@ object Extract extends SparkSessionBuilder {
       .schema(schema)
       .options(csvOptions)
       .csv(filePath)
-    val processedDF: DataFrame = process(df)
-    processedDF.as[DataPerComune]
+    val processedDF: Dataset[DataPerComune] = process(df).as[DataPerComune]
+
+    processedDF
   }
 }
