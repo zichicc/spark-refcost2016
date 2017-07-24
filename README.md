@@ -25,14 +25,12 @@ a string as a consequence, NaN, empty, negative numbers).
 In order to launch the Spark Job, type in the command line:
 
 ```
-sbt clean
 sbt "run csv-file-name.csv"
 ```
 
 or inside an `sbt` shell:
 
 ```
-clean 
 run csv-file-name.csv
 ```
 
