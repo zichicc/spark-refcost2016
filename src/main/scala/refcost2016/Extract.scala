@@ -48,7 +48,7 @@ object Extract extends SparkSessionBuilder {
         .withColumn("regione", upper(trim('regione)))
         .withColumn("provincia", upper(trim('provincia)))
         .withColumn("comune", upper(trim('comune)))
-        .distinct // avoid duplicates
+        .distinct // avoid duplicate rows
         .where('regione
           .isin(italianRegions: _*) and 'elettori >= 'elettori_m and 'votanti >= 'votanti_m and
           'votanti === 'voti_si + 'voti_no + 'voti_bianchi + 'voti_nonvalidi + 'voti_contestati)
