@@ -52,6 +52,7 @@ object Extract extends SparkSessionBuilder {
         .where('regione
           .isin(italianRegions: _*) and 'elettori >= 'elettori_m and 'votanti >= 'votanti_m and
           'votanti === 'voti_si + 'voti_no + 'voti_bianchi + 'voti_nonvalidi + 'voti_contestati)
+        .persist
 
     val duplicateCheck: DataFrame =
       preProcessedDF
