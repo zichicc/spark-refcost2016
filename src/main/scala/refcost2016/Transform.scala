@@ -4,15 +4,16 @@ package refcost2016
   * Created by christianzichichi <christianzichichi@gmail.com> on 20/07/2017.
   */
 import utils._
-import org.apache.spark.sql.Dataset
+import org.apache.spark.sql.{DataFrame, Dataset}
 import org.apache.spark.sql.types.DoubleType
 
 object Transform extends SparkSessionBuilder {
 
   import spark.implicits._
 
-  def transform(ds: Dataset[DataPerComune]): Dataset[DataPerRegione] =
-    ds.groupBy('regione)
+  def transform(ds: Dataset[DataPerComune]): Dataset[DataPerRegione] = {
+    val aggregatedDS: DataFrame = ds
+      .groupBy('regione)
       .sum()
       .toDF("regione",
             "elettori",
@@ -24,6 +25,8 @@ object Transform extends SparkSessionBuilder {
             "voti_bianchi",
             "voti_nonvalidi",
             "voti_contestati")
+
+    val transformedDS: Dataset[DataPerRegione] = aggregatedDS
       .select(
         'regione,
         'elettori_m,
@@ -37,4 +40,7 @@ object Transform extends SparkSessionBuilder {
       )
       .orderBy('regione)
       .as[DataPerRegione]
+
+    transformedDS
+  }
 }
