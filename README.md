@@ -1,5 +1,9 @@
 # Italian Constitutional Referendum 2016 Data Analysis
 
+Visualization of final results provided at the following link:
+
+[Databricks Cloud Notebook - Data Visualization Dashboard](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/1561876986307673/711352713268312/8038485510991767/latest.html)
+
 ### Project Setup (IntelliJ Idea / SBT Shell)
 Create a `resources` folder in ./src/main/ and place a semicolon-delimited `csv` file in it, 
 which should include a header describing these columns:
