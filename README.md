@@ -48,5 +48,5 @@ The output semicolon-delimited csv file will be saved in `./output/` folder as `
     |-- PERCENTUALEVOTI_NO: double
     |-- PERCENTUALEVOTI_BNVC: double
 ```
-`PERCENTUALEVOTI_BNVC` percentage includes `VOTIBIANCHI`, `VOTINONVALIDI` and `NUMVOTICONTESTATI`
+`PERCENTUALEVOTI_BNVC` percentage includes `VOTIBIANCHI`, `VOTINONVALIDI` and `VOTICONTESTATI`
 
