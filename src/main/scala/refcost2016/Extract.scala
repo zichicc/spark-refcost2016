@@ -8,12 +8,13 @@ import org.apache.spark.sql.{DataFrame, Dataset}
 import org.apache.spark.sql.catalyst.ScalaReflection
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.functions.{trim, upper}
+import org.apache.spark.storage.StorageLevel
 
 object Extract extends SparkSessionBuilder {
 
   import spark.implicits._
 
-  private val italianRegions: Seq[String] = List(
+  private lazy val italianRegions: Seq[String] = List(
     "ABRUZZO",
     "BASILICATA",
     "CALABRIA",
@@ -36,11 +37,14 @@ object Extract extends SparkSessionBuilder {
     "VENETO"
   )
 
-  private val schema =
+  private lazy val schema =
     ScalaReflection.schemaFor[DataPerComune].dataType.asInstanceOf[StructType]
 
-  private val csvOptions =
-    Map("header" -> "true", "delimiter" -> ";", "mode" -> "DROPMALFORMED")
+  private lazy val csvOptions =
+    Map("header" -> "true",
+        "delimiter" -> ";",
+        "parserLib" -> "UNIVOCITY",
+        "mode" -> "DROPMALFORMED")
 
   private def process(df: DataFrame): DataFrame = {
     val preProcessedDF: DataFrame =
@@ -52,7 +56,7 @@ object Extract extends SparkSessionBuilder {
         .where('regione
           .isin(italianRegions: _*) and 'elettori >= 'elettori_m and 'votanti >= 'votanti_m and
           'votanti === 'voti_si + 'voti_no + 'voti_bianchi + 'voti_nonvalidi + 'voti_contestati)
-        .persist
+        .persist(StorageLevel.MEMORY_ONLY_SER)
 
     val duplicateCheck: DataFrame =
       preProcessedDF
