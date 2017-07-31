@@ -70,6 +70,7 @@ object Extract extends SparkSessionBuilder {
       .where('count === 1) // avoid conflicts if comune inserted twice with different data
       .drop('count)
 
+    preProcessedDF.unpersist()
     postProcessedDF
   }
 
